@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 import {
   IonApp,
   IonRouterOutlet,
@@ -7,6 +9,8 @@ import {
   IonTitle,
   IonContent,
   IonButtons,
+  IonMenu,
+  IonMenuButton,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -18,8 +22,11 @@ import {
     IonTitle,
     IonToolbar,
     IonHeader,
+    IonMenu,
+    IonMenuButton,
     IonRouterOutlet,
     IonApp,
+    CommonModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

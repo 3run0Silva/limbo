@@ -8,5 +8,5 @@ export const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'vedette', component: VedettePageComponent },
   { path: 'nightlife', component: NightlifePageComponent },
-  { path: 'Gallery', component: GalleryPageComponent },
+  { path: 'gallery', component: GalleryPageComponent },
 ];
