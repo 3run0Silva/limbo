@@ -153,6 +153,9 @@
               "browserTarget": "limbo:build:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
