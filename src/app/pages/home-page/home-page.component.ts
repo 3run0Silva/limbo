@@ -11,9 +11,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
+  openEstablishments: number = 0;
+  closedEstablishments: number = 0;
+  newPhotos: number = 0;
+  totalPhotos: number = 0;
+
   constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.openEstablishments = 10;
+    this.closedEstablishments = 30;
+    this.newPhotos = 10;
+    this.totalPhotos = 32;
+  }
 
   navigateTo(route: string) {
     this.router.navigate([route]);
