@@ -11,12 +11,14 @@ import {
   IonButtons,
   IonMenu,
   IonMenuButton,
+  IonCard,
 } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
+    IonCard,
     IonButtons,
     IonContent,
     IonTitle,

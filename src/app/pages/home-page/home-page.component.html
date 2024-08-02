@@ -1,1 +1,48 @@
+<ion-content>
+  <div class="background">
+    <div class="header">
+      <h2>The unseen side of TPG</h2>
+      <img src="assets/images/tpg-tram.jpg" alt="TPG tram" />
+      <p>
+        Example of the Vedette story that could be in the spotlight during the
+        day/night, this could be articles exploring the work live of the people
+        working night shifts in Geneva or even something about the events etc...
+      </p>
+      <ion-button expand="block" (click)="navigateTo('/vedette')"
+        >Read more</ion-button
+      >
+    </div>
 
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <div class="card nightlife" (click)="navigateTo('/nightlife')">
+            <img src="assets/images/nightlife.jpg" alt="Nightlife" />
+            <p>Nightlife</p>
+            <span>This is an example of what could be written here</span>
+            <div class="tags">
+              <ion-badge color="danger">30</ion-badge>
+              <ion-badge color="success">10</ion-badge>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="card art-culture" (click)="navigateTo('/art-culture')">
+            <img src="assets/images/art-culture.jpg" alt="Art & Culture" />
+            <p>Art & Culture</p>
+            <span
+              >Articles about the nightlife, shows, and culture in Geneva.</span
+            >
+            <div class="tags">
+              <ion-badge color="primary">New 10</ion-badge>
+              <ion-badge color="secondary">32</ion-badge>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- Add the triangle shape at the bottom right -->
+    <div class="triangle"></div>
+  </div>
+</ion-content>

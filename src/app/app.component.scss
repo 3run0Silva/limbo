@@ -1,0 +1,95 @@
+ion-header {
+  ion-toolbar {
+    --background: #5a4033; /* Your brown color */
+    --color: white; /* Text color */
+    --border-width: 0; /* Remove border */
+    box-shadow: none; /* Remove shadow */
+  }
+}
+
+ion-content {
+  --ion-background-color: #5a4033; /* Same brown color */
+}
+
+.home-page-content {
+  --ion-background-color: #f7b499e3; /* Main background color */
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top-brown {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 15%;
+  background-color: #5a4033; /* Brown color */
+}
+
+.bottom-brown-triangle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 150px 150px;
+  border-color: transparent transparent #5a4033 transparent; /* Brown color */
+}
+
+.vedette-card {
+  background: linear-gradient(to bottom right, #ff7e5f, #feb47b);
+  color: white;
+  text-align: center;
+  width: 90%;
+  margin-top: 15%; /* Space for the top brown area */
+  z-index: 1; /* Ensure it is above the brown areas */
+}
+
+.vedette-image {
+  width: 100%;
+  height: auto;
+}
+
+.vedette-title {
+  font-size: 1.5em;
+  margin-top: 10px;
+}
+
+.vedette-content p {
+  margin: 10px 0;
+}
+
+.read-more-button {
+  --background: #dc561d5d;
+  --color: white;
+  width: 100%;
+}
+
+.cards-grid {
+  width: 100%;
+  padding: 0 10px;
+}
+
+.info-card {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.info-image {
+  width: 100%;
+  height: auto;
+}
+
+.badge-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+ion-badge {
+  margin: 0 5px;
+}
