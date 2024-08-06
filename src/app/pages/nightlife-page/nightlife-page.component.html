@@ -4,23 +4,27 @@
       <div id="map"></div>
     </div>
 
-    <ion-grid>
-      <ion-row>
-        <ion-col size="6" *ngFor="let establishment of establishments">
-          <div class="card" (click)="focusEstablishment(establishment)">
-            <img src="assets/images/nightlife.jpg" alt="Nightlife" />
-            <p>{{ establishment.name }}</p>
-            <span>{{ establishment.description }}</span>
-            <div class="tags">
-              <ion-badge
-                [color]="establishment.status === 'OPEN' ? 'success' : 'danger'"
-              >
-                {{ establishment.status }}
-              </ion-badge>
+    <div class="scrollable-cards">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" *ngFor="let establishment of establishments">
+            <div class="card" (click)="focusEstablishment(establishment)">
+              <img src="assets/images/nightlife.jpg" alt="Nightlife" />
+              <p>{{ establishment.name }}</p>
+              <span>{{ establishment.description }}</span>
+              <div class="tags">
+                <ion-badge
+                  [color]="
+                    establishment.status === 'OPEN' ? 'success' : 'danger'
+                  "
+                >
+                  {{ establishment.status }}
+                </ion-badge>
+              </div>
             </div>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
   </div>
 </ion-content>

@@ -48,6 +48,34 @@ export class NightlifePageComponent implements OnInit, AfterViewInit {
       lat: 46.204,
       lng: 6.1244,
     },
+    {
+      name: 'Bar 4',
+      status: 'OPEN',
+      description: 'A lively place with live music every weekend.',
+      lat: 46.204,
+      lng: 6.1244,
+    },
+    {
+      name: 'Bar 4',
+      status: 'CLOSED',
+      description: 'A lively place with live music every weekend.',
+      lat: 45.204,
+      lng: 6.1244,
+    },
+    {
+      name: 'Bar 4',
+      status: 'CLOSED',
+      description: 'A lively place with live music every weekend.',
+      lat: 46.0,
+      lng: 6.1244,
+    },
+    {
+      name: 'Bar 4',
+      status: 'OPEN',
+      description: 'A lively place with live music every weekend.',
+      lat: 46.204,
+      lng: 4.124,
+    },
   ];
 
   constructor() {}
