@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ToastController } from '@ionic/angular';
 import * as L from 'leaflet';
 
 @Component({
@@ -77,8 +77,10 @@ export class NightlifePageComponent implements OnInit, AfterViewInit {
       lng: 4.124,
     },
   ];
+  selectedEstablishment: any = null;
+  toastShown = false;
 
-  constructor() {}
+  constructor(private toastController: ToastController) {}
 
   ngOnInit() {}
 
@@ -123,12 +125,34 @@ export class NightlifePageComponent implements OnInit, AfterViewInit {
     }, 100);
   }
 
-  focusEstablishment(establishment: any) {
+  async focusEstablishment(establishment: any) {
+    this.selectedEstablishment = establishment;
     const { lat, lng } = establishment;
     this.map.setView([lat, lng], 15);
     L.marker([lat, lng])
       .addTo(this.map)
       .bindPopup(`<b>${establishment.name}</b><br>${establishment.description}`)
       .openPopup();
+
+    if (!this.toastShown) {
+      await this.presentToast(
+        'Click the card again to return to the previous menu.'
+      );
+      this.toastShown = true;
+    }
+  }
+
+  resetEstablishment() {
+    this.selectedEstablishment = null;
+  }
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 1000,
+      position: 'middle',
+      cssClass: 'custom-toast',
+    });
+    await toast.present();
   }
 }

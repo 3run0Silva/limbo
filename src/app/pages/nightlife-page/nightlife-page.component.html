@@ -5,7 +5,7 @@
     </div>
 
     <div class="scrollable-cards">
-      <ion-grid>
+      <ion-grid *ngIf="!selectedEstablishment">
         <ion-row>
           <ion-col size="6" *ngFor="let establishment of establishments">
             <div class="card" (click)="focusEstablishment(establishment)">
@@ -25,6 +25,23 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+
+      <div *ngIf="selectedEstablishment" class="expanded-card">
+        <div class="card" (click)="resetEstablishment()">
+          <img src="assets/images/nightlife.jpg" alt="Nightlife" />
+          <p>{{ selectedEstablishment.name }}</p>
+          <span>{{ selectedEstablishment.description }}</span>
+          <div class="tags">
+            <ion-badge
+              [color]="
+                selectedEstablishment.status === 'OPEN' ? 'success' : 'danger'
+              "
+            >
+              {{ selectedEstablishment.status }}
+            </ion-badge>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </ion-content>

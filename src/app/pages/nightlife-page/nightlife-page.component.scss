@@ -3,7 +3,7 @@ ion-content {
 }
 
 .background {
-  background: linear-gradient(to bottom, #411f1f00 23%, #f8b8a1 23%);
+  background: linear-gradient(to bottom, #411f1f00 20%, #f8b8a1 20%);
   height: 100vh;
   position: relative;
   z-index: 1;
@@ -20,6 +20,7 @@ ion-content {
   position: sticky;
   top: 0;
   z-index: 2;
+  transform: scale(0.97);
 }
 
 #map {
@@ -37,11 +38,13 @@ ion-grid {
   .card {
     background-color: #d9d9d9;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 10px 31px -18px rgba(0, 0, 0, 0.75);
     text-align: center;
     position: relative;
     padding-bottom: 16px;
     transform: scale(0.85);
+    transition: transform 0.5s, width 0.5s, height 0.5s, margin 0.5s, top 0.5s,
+      left 0.5s;
 
     img {
       width: 100%;
@@ -68,8 +71,8 @@ ion-grid {
       justify-content: center;
       align-items: center;
       position: relative;
-      margin-top: 30px;
-      bottom: 8px;
+      margin-top: 15%;
+      bottom: 5px;
       width: 100%;
     }
 
@@ -82,4 +85,67 @@ ion-grid {
       font-size: 0.9rem;
     }
   }
+}
+
+.expanded-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 235px - 56px);
+  transition: transform 0.5s, width 0.5s, height 0.5s, margin 0.5s, top 0.5s,
+    left 0.5s;
+
+  .card {
+    width: 90%;
+    background-color: #d9d9d9;
+    text-align: center;
+    height: 80%;
+    max-height: 100%;
+    transform: scale(1);
+    margin-bottom: 25%;
+    box-shadow: 0px 10px 31px -18px rgba(0, 0, 0, 0.75);
+    border-radius: 12px;
+    transition: all 0.5s ease;
+
+    img {
+      height: auto;
+      object-fit: cover;
+      width: 100%;
+      max-height: 200px;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    p,
+    span {
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+      color: black;
+      padding: 5%;
+    }
+
+    .tags {
+      margin-top: 25%;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    ion-badge {
+      width: 80px;
+      height: 30px;
+      font-size: 1rem;
+    }
+  }
+}
+
+.custom-toast {
+  --background: rgba(0, 0, 0, 0.8);
+  --color: #ffffff;
+  border-radius: 12px;
+  font-size: 1rem;
+  padding: 16px;
+  text-align: center;
+  width: 80%;
 }
