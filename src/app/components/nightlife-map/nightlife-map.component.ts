@@ -6,6 +6,8 @@ import {
   Output,
   EventEmitter,
   ViewChild,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import * as L from 'leaflet';
 
@@ -19,18 +21,25 @@ import * as L from 'leaflet';
   styleUrls: ['./nightlife-map.component.scss'],
   standalone: true,
 })
-export class NightlifeMapComponent implements AfterViewInit {
+export class NightlifeMapComponent implements AfterViewInit, OnChanges {
   @ViewChild('mapWrapper', { static: false }) mapWrapper!: ElementRef;
   @Input() establishments: any[] = [];
   @Input() selectedEstablishment: any = null;
   @Output() markerClick = new EventEmitter<any>();
 
   map!: L.Map;
+  markers: L.Marker[] = [];
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.initMap();
     }, 100);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.map && changes['selectedEstablishment']) {
+      this.updateMapView();
+    }
   }
 
   initMap() {
@@ -53,7 +62,15 @@ export class NightlifeMapComponent implements AfterViewInit {
       this.map.panInsideBounds(bounds, { animate: false });
     });
 
-    // Establishment markers
+    this.addMarkers();
+  }
+
+  addMarkers() {
+    // Clear existing markers
+    this.markers.forEach((marker) => this.map.removeLayer(marker));
+    this.markers = [];
+
+    // Add markers
     this.establishments.forEach((establishment) => {
       const marker = L.marker([establishment.lat, establishment.lng])
         .addTo(this.map)
@@ -64,23 +81,18 @@ export class NightlifeMapComponent implements AfterViewInit {
       marker.on('click', () => {
         this.markerClick.emit(establishment);
       });
-    });
 
-    setTimeout(() => {
-      this.map.invalidateSize();
-    }, 100);
+      this.markers.push(marker);
+    });
   }
 
-  ngOnChanges() {
-    if (this.map && this.selectedEstablishment) {
+  updateMapView() {
+    if (this.selectedEstablishment) {
       const { lat, lng } = this.selectedEstablishment;
       this.map.setView([lat, lng], 15);
-      L.marker([lat, lng])
-        .addTo(this.map)
-        .bindPopup(
-          `<b>${this.selectedEstablishment.name}</b><br>${this.selectedEstablishment.description}`
-        )
-        .openPopup();
+
+      // Clear markers for map sync
+      this.addMarkers();
     }
   }
 }
