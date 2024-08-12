@@ -1,11 +1,42 @@
 <ion-app>
-  <ion-menu contentId="main-content" side="end">
+  <ion-menu contentId="main-content" side="end" id="main-menu">
     <ion-header>
       <ion-toolbar>
         <ion-title>Menu Content</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding">This is the menu content.</ion-content>
+    <ion-content class="ion-padding">
+      <ion-list>
+        <ion-item
+          routerLink="/"
+          routerDirection="root"
+          (click)="closeMenu('/')"
+        >
+          Home
+        </ion-item>
+        <ion-item
+          routerLink="/vedette"
+          routerDirection="root"
+          (click)="closeMenu('/vedette')"
+        >
+          Vedette
+        </ion-item>
+        <ion-item
+          routerLink="/nightlife"
+          routerDirection="root"
+          (click)="closeMenu('/nightlife')"
+        >
+          Nightlife
+        </ion-item>
+        <ion-item
+          routerLink="/gallery"
+          routerDirection="root"
+          (click)="closeMenu('/gallery')"
+        >
+          Gallery
+        </ion-item>
+      </ion-list>
+    </ion-content>
   </ion-menu>
   <div class="ion-page" id="main-content">
     <ion-header>

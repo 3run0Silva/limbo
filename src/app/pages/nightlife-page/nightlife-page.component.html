@@ -14,6 +14,7 @@
             <app-nightlife-card
               [establishment]="establishment"
               (cardClick)="focusEstablishment(establishment)"
+              [isExpanded]="false"
             >
             </app-nightlife-card>
           </ion-col>
@@ -24,6 +25,7 @@
         <app-nightlife-card
           [establishment]="selectedEstablishment"
           (cardClick)="resetEstablishment()"
+          [isExpanded]="true"
         >
         </app-nightlife-card>
       </div>

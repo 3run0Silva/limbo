@@ -21,6 +21,7 @@
     height: 230px;
     margin-bottom: 16px;
     object-fit: cover;
+    border: solid #f8b8a1;
   }
 
   p {
@@ -31,7 +32,7 @@
 
   ion-button {
     width: 100%;
-    --background: #e91e63;
+    --background: #e7518377;
     --color: white;
   }
 }
