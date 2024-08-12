@@ -3,6 +3,8 @@ import {
   AfterViewInit,
   ElementRef,
   Input,
+  Output,
+  EventEmitter,
   ViewChild,
 } from '@angular/core';
 import * as L from 'leaflet';
@@ -21,6 +23,7 @@ export class NightlifeMapComponent implements AfterViewInit {
   @ViewChild('mapWrapper', { static: false }) mapWrapper!: ElementRef;
   @Input() establishments: any[] = [];
   @Input() selectedEstablishment: any = null;
+  @Output() markerClick = new EventEmitter<any>(); // Add an output event
 
   map!: L.Map;
 
@@ -52,12 +55,16 @@ export class NightlifeMapComponent implements AfterViewInit {
 
     // Establishment markers
     this.establishments.forEach((establishment) => {
-      L.marker([establishment.lat, establishment.lng])
+      const marker = L.marker([establishment.lat, establishment.lng])
         .addTo(this.map)
         .bindPopup(
           `<b>${establishment.name}</b><br>${establishment.description}`
-        )
-        .openPopup();
+        );
+
+      // Listen for marker click and emit the event
+      marker.on('click', () => {
+        this.markerClick.emit(establishment);
+      });
     });
 
     setTimeout(() => {
