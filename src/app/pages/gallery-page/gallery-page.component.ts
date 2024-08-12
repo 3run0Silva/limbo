@@ -70,7 +70,6 @@ export class GalleryPageComponent implements OnInit {
 
     modal.onDidDismiss().then((data) => {
       if (data.data?.imageUrl) {
-        // You can handle the returned image data here if needed
       }
     });
 

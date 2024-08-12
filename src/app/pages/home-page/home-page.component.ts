@@ -7,10 +7,17 @@ import {
   Firestore,
   collectionData,
   collection,
+  doc,
+  getDoc,
   query,
   orderBy,
   limit,
 } from '@angular/fire/firestore';
+
+interface VedetteImage {
+  img: string;
+  description: string;
+}
 
 @Component({
   selector: 'app-home-page',
@@ -24,6 +31,7 @@ export class HomePageComponent implements OnInit {
   closedEstablishments: number = 0;
   newPhotos: number = 0;
   totalPhotos: number = 0;
+  mainImage: VedetteImage | undefined; // Property to hold the main image
 
   constructor(
     private router: Router,
@@ -34,6 +42,7 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
     this.fetchEstablishmentStatus();
     this.fetchPhotosData();
+    this.fetchMainImage(); // Fetch the main image from Firestore
   }
 
   fetchEstablishmentStatus() {
@@ -59,6 +68,14 @@ export class HomePageComponent implements OnInit {
         this.newPhotos = recentPhotos.length;
       });
     });
+  }
+
+  async fetchMainImage() {
+    const mainImageDoc = doc(this.firestore, 'vedette', 'main');
+    const mainImageSnapshot = await getDoc(mainImageDoc);
+    if (mainImageSnapshot.exists()) {
+      this.mainImage = mainImageSnapshot.data() as VedetteImage;
+    }
   }
 
   isOpen(openingTime: string, closingTime: string): boolean {

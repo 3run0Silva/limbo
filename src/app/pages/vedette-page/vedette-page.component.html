@@ -1,3 +1,101 @@
-<p>
-  vedette-page works!
-</p>
+<ion-content>
+  <div class="background">
+    <div class="article-header">
+      <h1>The Unseen Side of the CFF</h1>
+      <p>
+        A glimpse into the night operations that keep the Swiss Federal Railways
+        running smoothly.
+      </p>
+
+      <!-- Main Image -->
+      <div class="main-image-container" *ngIf="mainImage">
+        <img
+          [src]="mainImage.img"
+          alt="CFF Night Operations"
+          class="main-image"
+        />
+      </div>
+    </div>
+
+    <div class="article-body">
+      <p>
+        Most people take for granted the seamless operation of the trains they
+        catch every morning. They don’t often realize the extensive work that
+        happens during the night to ensure everything runs like clockwork when
+        the sun rises. In this article, I’ll take you behind the scenes and
+        share what it was like to work during the nighttime hours for the CFF –
+        a world where drivers, mechanics, maintenance crews, engineers, and
+        guards work tirelessly to keep the system moving.
+      </p>
+
+      <h2>The Start of the Night</h2>
+      <p>
+        Nights on the job could start as early as midnight or as late as 3 AM.
+        The work was meticulously planned out months in advance, with every task
+        carefully coordinated. I was part of a specialized team of four, known
+        for our expertise and ability to tackle the most challenging tasks. We
+        weren’t just cleaners – we were responsible for high-risk jobs that
+        required precision and skill, such as cleaning railway tracks and
+        performing maintenance in hazardous conditions.
+      </p>
+
+      <!-- Mid Article Image -->
+      <div
+        class="image-container"
+        *ngIf="midImage"
+        (click)="toggleDescription(midImage)"
+      >
+        <img [src]="midImage.img" alt="Mid Article Image" />
+        <div class="description-overlay" *ngIf="selectedImage === midImage">
+          <p>{{ midImage.description }}</p>
+        </div>
+      </div>
+
+      <h2>The Jobs That Go Unseen</h2>
+      <p>
+        Our team was often tasked with maintaining the 42 stations from La
+        Plaine to Cossonay. We handled jobs that required us to operate heavy
+        machinery and work with dangerous chemicals. Whether it was cleaning the
+        tracks or scaling heights to clean station windows, we were always ready
+        for the task. The jobs we did were crucial for the safety and efficiency
+        of the railways, yet they were largely invisible to the public.
+      </p>
+
+      <h2>The Human Side of Night Work</h2>
+      <p>
+        Working nights takes a special kind of dedication. The hardest part
+        wasn’t the physical demands of the job, but the isolation. When most
+        people are asleep, it’s easy to feel disconnected from the world.
+        Maintaining a normal social life was a challenge, but the camaraderie we
+        shared as a team made it worthwhile. We were more than just colleagues –
+        we were a family, bonded by the unique challenges we faced each night.
+      </p>
+
+      <!-- End Article Image -->
+      <div
+        class="image-container"
+        *ngIf="endImage"
+        (click)="toggleDescription(endImage)"
+      >
+        <img [src]="endImage.img" alt="End Article Image" />
+        <div class="description-overlay" *ngIf="selectedImage === endImage">
+          <p>{{ endImage.description }}</p>
+        </div>
+      </div>
+
+      <p>
+        Being part of this team was one of the most rewarding experiences of my
+        life. We were the unseen heroes, working in the shadows to ensure that
+        the trains ran smoothly for the thousands of people who relied on them
+        every day. Although our work often went unnoticed, we took pride in
+        knowing that without us and others like us, the CFF wouldn’t be able to
+        deliver the reliable service it’s known for.
+      </p>
+    </div>
+
+    <div class="article-footer">
+      <p><strong>Author:</strong> Bruno Silva</p>
+      <p><strong>Date:</strong> 13 Oct 2024</p>
+    </div>
+  </div>
+</ion-content>
