@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ModalController } from '@ionic/angular';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { AddPhotoModalComponent } from '../../components/add-photo-modal/add-photo-modal.component';
 
 @Component({
   selector: 'app-gallery-page',
@@ -21,7 +22,10 @@ export class GalleryPageComponent implements OnInit {
   } | null = null;
   showInfo = false;
 
-  constructor(private firestore: Firestore) {}
+  constructor(
+    private firestore: Firestore,
+    private modalController: ModalController
+  ) {}
 
   ngOnInit() {
     this.fetchPhotos();
@@ -46,16 +50,30 @@ export class GalleryPageComponent implements OnInit {
     date: string;
   }) {
     this.selectedPhoto = photo;
-    this.showInfo = false; // Ensure info is hidden initially
+    this.showInfo = false;
   }
 
   closePhoto() {
     this.selectedPhoto = null;
-    this.showInfo = false; // Reset info visibility
+    this.showInfo = false;
   }
 
   toggleInfo(event: Event) {
-    event.stopPropagation(); // Prevent closing the modal when clicking the info button
+    event.stopPropagation();
     this.showInfo = !this.showInfo;
+  }
+
+  async openAddPhotoModal() {
+    // Method to open the Add Photo Modal
+    const modal = await this.modalController.create({
+      component: AddPhotoModalComponent,
+    });
+
+    modal.onDidDismiss().then((data) => {
+      if (data.data?.imageUrl) {
+      }
+    });
+
+    await modal.present();
   }
 }

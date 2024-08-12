@@ -40,19 +40,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Full viewport height */
-  width: 100vw; /* Full viewport width */
-  background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
-  position: fixed; /* Cover the whole screen */
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000; /* Ensure it is on top */
+  z-index: 1000;
 
   img {
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain; /* Ensures the image fits within the screen */
-    border-radius: 0; /* Remove any border radius */
+    object-fit: contain;
+    border-radius: 0;
   }
 
   .info-button {
@@ -84,7 +84,7 @@
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
     text-align: center;
-    z-index: 1100; /* Ensure it is above the image */
+    z-index: 1100;
 
     p {
       margin: 10%;
@@ -95,4 +95,24 @@
       font-size: 14px;
     }
   }
+}
+
+.add-photo-button {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+ion-content {
+  --padding-bottom: 56px;
+}
+
+ion-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
 }
