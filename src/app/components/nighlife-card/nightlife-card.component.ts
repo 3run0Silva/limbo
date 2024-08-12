@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
   selector: 'app-nightlife-card',
   template: `
     <div class="card" (click)="onCardClick()">
-      <img src="assets/images/nightlife.jpg" alt="Nightlife" />
+      <img [src]="establishment.img" alt="{{ establishment.name }}" />
       <p>{{ establishment.name }}</p>
       <span>{{ establishment.description }}</span>
       <div class="tags">
