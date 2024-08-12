@@ -9,9 +9,13 @@ import { IonicModule } from '@ionic/angular';
       class="card"
       [ngClass]="{ expanded: isExpanded }"
       (click)="onCardClick()"
+      *ngIf="establishment"
     >
-      <img [src]="establishment.img" alt="Nightlife" />
-      <p>{{ establishment.name }}</p>
+      <img
+        [src]="establishment.img || 'assets/default-image.png'"
+        alt="Nightlife"
+      />
+      <p>{{ establishment.name || 'Unknown Establishment' }}</p>
       <span>{{
         isExpanded ? establishment.description : truncatedDescription
       }}</span>
@@ -19,7 +23,7 @@ import { IonicModule } from '@ionic/angular';
         <ion-badge
           [color]="establishment.status === 'OPEN' ? 'success' : 'danger'"
         >
-          {{ establishment.status }}
+          {{ establishment.status || 'UNKNOWN' }}
         </ion-badge>
       </div>
     </div>
@@ -35,12 +39,17 @@ export class NightlifeCardComponent {
 
   get truncatedDescription(): string {
     const maxLength = 20;
+    if (!this.establishment || !this.establishment.description) {
+      return '';
+    }
     return this.establishment.description.length > maxLength
       ? this.establishment.description.slice(0, maxLength) + '...'
       : this.establishment.description;
   }
 
   onCardClick() {
-    this.cardClick.emit();
+    if (this.establishment) {
+      this.cardClick.emit(this.establishment);
+    }
   }
 }

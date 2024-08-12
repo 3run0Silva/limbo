@@ -8,12 +8,49 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item (click)="selectPhotoFromDevice()">
-      <ion-label>Select from Device</ion-label>
-    </ion-item>
-    <ion-item (click)="takePhotoWithCamera()">
-      <ion-label>Take a Photo</ion-label>
-    </ion-item>
-  </ion-list>
+  <!-- Show the menu if no image has been selected yet -->
+  <div *ngIf="!imageUrl">
+    <ion-list>
+      <ion-item button (click)="selectPhotoFromDevice()">
+        <ion-label>Select Photo from Device</ion-label>
+      </ion-item>
+      <ion-item button (click)="takePhotoWithCamera()">
+        <ion-label>Take Photo with Camera</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- Show the form if an image has been selected -->
+  <div *ngIf="imageUrl">
+    <ion-img [src]="imageUrl"></ion-img>
+
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Author</ion-label>
+        <ion-input [(ngModel)]="author" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating"
+          >Description ({{ description.length }}/{{
+            maxDescriptionLength
+          }})</ion-label
+        >
+        <ion-textarea
+          [(ngModel)]="description"
+          maxlength="{{ maxDescriptionLength }}"
+          required
+        ></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    <ion-button
+      expand="block"
+      (click)="submitPhoto()"
+      [disabled]="
+        !imageUrl || !author || description.length > maxDescriptionLength
+      "
+    >
+      Submit
+    </ion-button>
+  </div>
 </ion-content>

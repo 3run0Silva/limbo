@@ -7,7 +7,7 @@ import { AddPhotoModalComponent } from '../../components/add-photo-modal/add-pho
 @Component({
   selector: 'app-gallery-page',
   standalone: true,
-  imports: [CommonModule, IonicModule],
+  imports: [CommonModule, IonicModule, AddPhotoModalComponent],
   templateUrl: './gallery-page.component.html',
   styleUrls: ['./gallery-page.component.scss'],
 })
@@ -64,13 +64,13 @@ export class GalleryPageComponent implements OnInit {
   }
 
   async openAddPhotoModal() {
-    // Method to open the Add Photo Modal
     const modal = await this.modalController.create({
       component: AddPhotoModalComponent,
     });
 
     modal.onDidDismiss().then((data) => {
       if (data.data?.imageUrl) {
+        // You can handle the returned image data here if needed
       }
     });
 
