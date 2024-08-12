@@ -1,46 +1,31 @@
 <ion-content>
   <div class="background">
-    <div id="map-wrapper" #mapWrapper>
-      <div id="map"></div>
-    </div>
+    <app-nightlife-map
+      [establishments]="establishments"
+      [selectedEstablishment]="selectedEstablishment"
+      (markerClick)="focusEstablishment($event)"
+    >
+    </app-nightlife-map>
 
     <div class="scrollable-cards">
       <ion-grid *ngIf="!selectedEstablishment">
         <ion-row>
           <ion-col size="6" *ngFor="let establishment of establishments">
-            <div class="card" (click)="focusEstablishment(establishment)">
-              <img src="assets/images/nightlife.jpg" alt="Nightlife" />
-              <p>{{ establishment.name }}</p>
-              <span>{{ establishment.description }}</span>
-              <div class="tags">
-                <ion-badge
-                  [color]="
-                    establishment.status === 'OPEN' ? 'success' : 'danger'
-                  "
-                >
-                  {{ establishment.status }}
-                </ion-badge>
-              </div>
-            </div>
+            <app-nightlife-card
+              [establishment]="establishment"
+              (cardClick)="focusEstablishment(establishment)"
+            >
+            </app-nightlife-card>
           </ion-col>
         </ion-row>
       </ion-grid>
 
       <div *ngIf="selectedEstablishment" class="expanded-card">
-        <div class="card" (click)="resetEstablishment()">
-          <img src="assets/images/nightlife.jpg" alt="Nightlife" />
-          <p>{{ selectedEstablishment.name }}</p>
-          <span>{{ selectedEstablishment.description }}</span>
-          <div class="tags">
-            <ion-badge
-              [color]="
-                selectedEstablishment.status === 'OPEN' ? 'success' : 'danger'
-              "
-            >
-              {{ selectedEstablishment.status }}
-            </ion-badge>
-          </div>
-        </div>
+        <app-nightlife-card
+          [establishment]="selectedEstablishment"
+          (cardClick)="resetEstablishment()"
+        >
+        </app-nightlife-card>
       </div>
     </div>
   </div>
