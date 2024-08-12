@@ -23,7 +23,7 @@ export class NightlifeMapComponent implements AfterViewInit {
   @ViewChild('mapWrapper', { static: false }) mapWrapper!: ElementRef;
   @Input() establishments: any[] = [];
   @Input() selectedEstablishment: any = null;
-  @Output() markerClick = new EventEmitter<any>(); // Add an output event
+  @Output() markerClick = new EventEmitter<any>();
 
   map!: L.Map;
 
@@ -61,7 +61,6 @@ export class NightlifeMapComponent implements AfterViewInit {
           `<b>${establishment.name}</b><br>${establishment.description}`
         );
 
-      // Listen for marker click and emit the event
       marker.on('click', () => {
         this.markerClick.emit(establishment);
       });
