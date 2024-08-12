@@ -50,7 +50,7 @@ export class AppComponent {
       await this.router.navigate([route]);
       console.log('Navigation complete. Attempting to close menu...');
 
-      await this.menuCtrl.toggle('main-menu');
+      await this.menuCtrl.close('main-menu');
 
       console.log('Menu toggle command sent.');
     } catch (error) {

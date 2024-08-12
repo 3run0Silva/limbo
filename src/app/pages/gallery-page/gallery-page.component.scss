@@ -47,11 +47,52 @@
   top: 0;
   left: 0;
   z-index: 1000; /* Ensure it is on top */
-}
 
-.fullscreen-photo img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain; /* Ensures the image fits within the screen */
-  border-radius: 0; /* Remove any border radius */
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ensures the image fits within the screen */
+    border-radius: 0; /* Remove any border radius */
+  }
+
+  .info-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1101;
+    transition: all 0.3s ease;
+
+    &.open {
+      bottom: calc(100vh - 64%);
+      transform: translateX(-50%) translateY(-50%);
+    }
+  }
+
+  .photo-info-overlay {
+    position: absolute;
+    height: 40%;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+    z-index: 1100; /* Ensure it is above the image */
+
+    p {
+      margin: 10%;
+      font-size: 16px;
+    }
+
+    small {
+      font-size: 14px;
+    }
+  }
 }

@@ -11,8 +11,15 @@ import { Firestore, collectionData, collection } from '@angular/fire/firestore';
   styleUrls: ['./gallery-page.component.scss'],
 })
 export class GalleryPageComponent implements OnInit {
-  photos: { img: string; description: string; author: string }[] = [];
-  selectedPhoto: string | null = null;
+  photos: { img: string; description: string; author: string; date: string }[] =
+    [];
+  selectedPhoto: {
+    img: string;
+    description: string;
+    author: string;
+    date: string;
+  } | null = null;
+  showInfo = false;
 
   constructor(private firestore: Firestore) {}
 
@@ -27,15 +34,28 @@ export class GalleryPageComponent implements OnInit {
         img: item.img,
         description: item.description,
         author: item.author,
+        date: item.date,
       }));
     });
   }
 
-  openPhoto(photoUrl: string) {
-    this.selectedPhoto = photoUrl;
+  openPhoto(photo: {
+    img: string;
+    description: string;
+    author: string;
+    date: string;
+  }) {
+    this.selectedPhoto = photo;
+    this.showInfo = false; // Ensure info is hidden initially
   }
 
   closePhoto() {
     this.selectedPhoto = null;
+    this.showInfo = false; // Reset info visibility
+  }
+
+  toggleInfo(event: Event) {
+    event.stopPropagation(); // Prevent closing the modal when clicking the info button
+    this.showInfo = !this.showInfo;
   }
 }
