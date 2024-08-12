@@ -10,6 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import * as L from 'leaflet';
+import { GeoPoint } from 'firebase/firestore';
 
 @Component({
   selector: 'app-nightlife-map',
@@ -37,6 +38,10 @@ export class NightlifeMapComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (this.map && changes['establishments']) {
+      this.addMarkers();
+    }
+
     if (this.map && changes['selectedEstablishment']) {
       this.updateMapView();
     }
@@ -55,13 +60,6 @@ export class NightlifeMapComponent implements AfterViewInit, OnChanges {
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.map);
 
-    // Map bounds
-    const bounds = L.latLngBounds([45.0, 5.0], [47.0, 7.0]);
-    this.map.setMaxBounds(bounds);
-    this.map.on('drag', () => {
-      this.map.panInsideBounds(bounds, { animate: false });
-    });
-
     this.addMarkers();
   }
 
@@ -72,27 +70,43 @@ export class NightlifeMapComponent implements AfterViewInit, OnChanges {
 
     // Add markers
     this.establishments.forEach((establishment) => {
-      const marker = L.marker([establishment.lat, establishment.lng])
-        .addTo(this.map)
-        .bindPopup(
-          `<b>${establishment.name}</b><br>${establishment.description}`
-        );
+      const location = establishment.location;
 
-      marker.on('click', () => {
-        this.markerClick.emit(establishment);
-      });
+      if (location instanceof GeoPoint) {
+        const lat = location.latitude;
+        const lng = location.longitude;
 
-      this.markers.push(marker);
+        const marker = L.marker([lat, lng])
+          .addTo(this.map)
+          .bindPopup(
+            `<b>${establishment.name}</b><br>${establishment.description}`
+          );
+
+        marker.on('click', () => {
+          this.markerClick.emit(establishment);
+        });
+
+        this.markers.push(marker);
+      } else {
+        console.error('Invalid location data:', location);
+      }
     });
   }
 
   updateMapView() {
-    if (this.selectedEstablishment) {
-      const { lat, lng } = this.selectedEstablishment;
+    if (
+      this.selectedEstablishment &&
+      this.selectedEstablishment.location instanceof GeoPoint
+    ) {
+      const location = this.selectedEstablishment.location;
+      const lat = location.latitude;
+      const lng = location.longitude;
       this.map.setView([lat, lng], 15);
-
-      // Clear markers for map sync
-      this.addMarkers();
+    } else {
+      console.error(
+        'Invalid selectedEstablishment location data:',
+        this.selectedEstablishment
+      );
     }
   }
 }
