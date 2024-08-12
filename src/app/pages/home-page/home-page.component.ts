@@ -3,6 +3,14 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NightlifeService } from '../../components/services/nighlife.service';
+import {
+  Firestore,
+  collectionData,
+  collection,
+  query,
+  orderBy,
+  limit,
+} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-home-page',
@@ -19,13 +27,13 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private nightlifeService: NightlifeService
+    private nightlifeService: NightlifeService,
+    private firestore: Firestore // Inject Firestore
   ) {}
 
   ngOnInit() {
     this.fetchEstablishmentStatus();
-    this.newPhotos = 10;
-    this.totalPhotos = 32;
+    this.fetchPhotosData();
   }
 
   fetchEstablishmentStatus() {
@@ -34,6 +42,22 @@ export class HomePageComponent implements OnInit {
         this.isOpen(establishment.openingTime, establishment.closingTime)
       ).length;
       this.closedEstablishments = data.length - this.openEstablishments;
+    });
+  }
+
+  fetchPhotosData() {
+    const photoCollection = collection(this.firestore, 'gallery');
+    collectionData(photoCollection).subscribe((photos: any[]) => {
+      this.totalPhotos = photos.length;
+
+      const recentPhotosQuery = query(
+        photoCollection,
+        orderBy('date', 'desc'),
+        limit(5)
+      );
+      collectionData(recentPhotosQuery).subscribe((recentPhotos: any[]) => {
+        this.newPhotos = recentPhotos.length;
+      });
     });
   }
 
