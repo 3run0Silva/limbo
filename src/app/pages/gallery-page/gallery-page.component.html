@@ -15,9 +15,11 @@
     </ion-grid>
   </div>
 
-  <ion-modal *ngIf="selectedPhoto" (ionModalDidDismiss)="closePhoto()">
-    <div class="fullscreen-photo" (click)="closePhoto()">
-      <img [src]="selectedPhoto" alt="Full-size Image" />
-    </div>
+  <ion-modal [isOpen]="selectedPhoto !== null" (willDismiss)="closePhoto()">
+    <ng-template>
+      <div class="fullscreen-photo" (click)="closePhoto()">
+        <img [src]="selectedPhoto" alt="Full-size Image" />
+      </div>
+    </ng-template>
   </ion-modal>
 </ion-content>

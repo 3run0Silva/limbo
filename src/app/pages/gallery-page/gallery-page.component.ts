@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, ModalController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-gallery-page',
@@ -15,10 +14,7 @@ export class GalleryPageComponent implements OnInit {
   photos: { img: string; description: string; author: string }[] = [];
   selectedPhoto: string | null = null;
 
-  constructor(
-    private firestore: Firestore,
-    private modalCtrl: ModalController
-  ) {}
+  constructor(private firestore: Firestore) {}
 
   ngOnInit() {
     this.fetchPhotos();
