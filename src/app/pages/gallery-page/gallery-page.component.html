@@ -1,10 +1,23 @@
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="6" *ngFor="let photo of photos">
-        <img [src]="photo.url" alt="Photo" />
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-button (click)="openPhotoUpload()">Submit Photo</ion-button>
+  <div class="gallery-grid">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-sm="6" size-lg="4" *ngFor="let photo of photos">
+          <div class="gallery-item" (click)="openPhoto(photo.img)">
+            <img [src]="photo.img" alt="Gallery Image" />
+            <div class="photo-details">
+              <p>{{ photo.description }}</p>
+              <small>by {{ photo.author }}</small>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-modal *ngIf="selectedPhoto" (ionModalDidDismiss)="closePhoto()">
+    <div class="fullscreen-photo" (click)="closePhoto()">
+      <img [src]="selectedPhoto" alt="Full-size Image" />
+    </div>
+  </ion-modal>
 </ion-content>
