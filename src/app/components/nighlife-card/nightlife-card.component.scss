@@ -1,3 +1,4 @@
+/* Base Card Styles */
 .card {
   background-color: #d9d9d9;
   border-radius: 12px;
@@ -5,13 +6,17 @@
   text-align: center;
   position: relative;
   padding-bottom: 16px;
+  width: 100%;
+  max-width: 250px;
+  height: 300px;
+  margin: 0 auto;
   transform: scale(0.85);
   transition: transform 0.5s, width 0.5s, height 0.5s, margin 0.5s, top 0.5s,
     left 0.5s;
 
   img {
     width: 100%;
-    height: 120px;
+    height: 150px;
     object-fit: cover;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
@@ -27,15 +32,18 @@
   span {
     font-size: 0.9rem;
     color: #666;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .tags {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    margin-top: 15%;
-    bottom: 5px;
+    position: absolute;
+    bottom: 10px;
     width: 100%;
   }
 
@@ -49,56 +57,41 @@
   }
 }
 
-.expanded-card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+/* Expanded Card Styles */
+.card.expanded {
   width: 100%;
-  transition: transform 0.5s, width 0.5s, height 0.5s, margin 0.5s, top 0.5s,
-    left 0.5s;
+  max-width: 100%;
+  height: 550px;
+  transform: scale(1);
+  max-height: 100%;
+  margin-bottom: 0;
+  padding-bottom: 0;
 
-  .card {
-    width: 90%;
-    background-color: #d9d9d9;
-    text-align: center;
-    height: 100%;
-    max-height: 100%;
-    transform: scale(1);
-    margin-bottom: 0;
-    box-shadow: 0px 10px 31px -18px rgba(0, 0, 0, 0.75);
-    border-radius: 12px;
-    transition: all 0.5s ease;
+  img {
+    height: 200px;
+  }
 
-    img {
-      height: auto;
-      object-fit: cover;
-      width: 100%;
-      max-height: 200px;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
-    }
+  p,
+  span {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: black;
+    padding: 5%;
+    white-space: normal;
+    overflow: visible;
+  }
 
-    p,
-    span {
-      margin-bottom: 8px;
-      font-size: 1.2rem;
-      color: black;
-      padding: 5%;
-    }
+  .tags {
+    margin-top: 25%;
+    bottom: 15px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 
-    .tags {
-      margin-top: 25%;
-      bottom: 0;
-      display: flex;
-      justify-content: center;
-      width: 100%;
-    }
-
-    ion-badge {
-      width: 80px;
-      height: 30px;
-      font-size: 1rem;
-    }
+  ion-badge {
+    width: 80px;
+    height: 30px;
+    font-size: 1rem;
   }
 }
