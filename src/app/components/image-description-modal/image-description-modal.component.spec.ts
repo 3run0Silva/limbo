@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ImageDescriptionModalComponent } from './image-description-modal.component';
+import { ImageDescriptionPopoverComponent } from '../image-description-modal/image-description-modal.component';
 
 describe('ImageDescriptionModalComponent', () => {
-  let component: ImageDescriptionModalComponent;
-  let fixture: ComponentFixture<ImageDescriptionModalComponent>;
+  let component: ImageDescriptionPopoverComponent;
+  let fixture: ComponentFixture<ImageDescriptionPopoverComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ImageDescriptionModalComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ImageDescriptionPopoverComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ImageDescriptionModalComponent);
+    fixture = TestBed.createComponent(ImageDescriptionPopoverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

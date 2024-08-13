@@ -1,19 +1,20 @@
 <ion-content>
   <div class="background">
     <div class="header">
-      <h2>The unseen side of the CFF</h2>
+      <h2>Le côté invisible des CFF</h2>
       <img src="assets/images/tpg-tram.jpg" alt="TPG tram" />
       <p>
-        Most people take for granted the seamless operation of the trains they
-        catch every morning. They don’t often realize the extensive work that
-        happens during the night to ensure everything runs like clockwork...
+        La plupart des gens tiennent pour acquis le bon fonctionnement des
+        trains qu'ils prennent chaque matin. Ils ne réalisent pas souvent le
+        travail considérable qui se fait pendant la nuit pour s'assurer que tout
+        fonctionne comme sur des roulettes...
       </p>
       <ion-button
         expand="block"
         (click)="navigateTo('/vedette')"
         style="height: 50px"
       >
-        Read more
+        En savoir plus
       </ion-button>
     </div>
 
@@ -22,8 +23,8 @@
         <ion-col size="6">
           <div class="card nightlife" (click)="navigateTo('/nightlife')">
             <img src="assets/images/nightlife.jpg" alt="Nightlife" />
-            <p>Nightlife</p>
-            <span>This is an example of what could be written here</span>
+            <p>Vie Nocturne</p>
+            <span>Découvrez tous les établissements ouverts ou fermés.</span>
             <div class="tags">
               <ion-badge color="danger">{{ closedEstablishments }}</ion-badge>
               <ion-badge color="success">{{ openEstablishments }}</ion-badge>
@@ -35,7 +36,8 @@
             <img src="assets/images/gallery.jpg" alt="Art & Culture" />
             <p>Art & Culture</p>
             <span
-              >Articles about the nightlife, shows, and culture in Geneva.</span
+              >Explorez une galerie d'art numérique créée par la
+              communauté.</span
             >
             <div class="tags">
               <ion-badge color="primary">New {{ newPhotos }}</ion-badge>

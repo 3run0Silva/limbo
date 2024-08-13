@@ -13,7 +13,7 @@ import { IonicModule } from '@ionic/angular';
     >
       <img
         [src]="establishment.img || 'assets/default-image.png'"
-        alt="Nightlife"
+        alt="Establishment image"
       />
       <p>{{ establishment.name || 'Unknown Establishment' }}</p>
       <span>{{
