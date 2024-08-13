@@ -7,10 +7,9 @@ import {
   collection,
   updateDoc,
   doc,
+  addDoc,
 } from '@angular/fire/firestore';
-import { Auth, User, user } from '@angular/fire/auth';
-import { Router } from '@angular/router';
-import { Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 
 interface SubmittedPhoto {
   id: string;
@@ -31,26 +30,11 @@ interface SubmittedPhoto {
 export class AdminPageComponent implements OnInit {
   photos$: Observable<SubmittedPhoto[]> | undefined;
 
-  constructor(
-    private firestore: Firestore,
-    private auth: Auth,
-    private router: Router
-  ) {}
+  constructor(private firestore: Firestore) {}
 
   ngOnInit() {
-    this.checkAdminRole();
-  }
-
-  checkAdminRole() {
-    user(this.auth)
-      .pipe(take(1))
-      .subscribe((userData: User | null) => {
-        if (userData && userData.email === 'dasilva.92.b@gmail.com') {
-          this.photos$ = this.fetchSubmittedPhotos();
-        } else {
-          this.router.navigate(['/']);
-        }
-      });
+    // Fetch submitted photos when the component initializes
+    this.photos$ = this.fetchSubmittedPhotos();
   }
 
   fetchSubmittedPhotos(): Observable<SubmittedPhoto[]> {
@@ -60,11 +44,28 @@ export class AdminPageComponent implements OnInit {
     >;
   }
 
-  approvePhoto(photo: SubmittedPhoto) {
+  async approvePhoto(photo: SubmittedPhoto) {
     const photoDoc = doc(this.firestore, `admin/${photo.id}`);
-    updateDoc(photoDoc, { approved: true }).then(() => {
+
+    // Update the approval status in the admin collection
+    await updateDoc(photoDoc, { approved: true }).then(() => {
       console.log('Photo approved');
     });
+
+    // Add the approved photo to the gallery collection
+    const galleryCollection = collection(this.firestore, 'gallery');
+    await addDoc(galleryCollection, {
+      author: photo.author,
+      description: photo.description,
+      img: photo.imageUrl,
+      date: new Date().toISOString(),
+    })
+      .then(() => {
+        console.log('Photo added to gallery');
+      })
+      .catch((error) => {
+        console.error('Error adding photo to gallery:', error);
+      });
   }
 
   rejectPhoto(photo: SubmittedPhoto) {

@@ -54,6 +54,6 @@ export class VedettePageComponent implements OnInit {
   }
 
   toggleDescription(image: VedetteImage) {
-    this.selectedImage = this.selectedImage === image ? null : image; // Toggle the selected image
+    this.selectedImage = this.selectedImage === image ? null : image;
   }
 }

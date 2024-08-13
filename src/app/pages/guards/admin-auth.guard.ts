@@ -26,7 +26,7 @@ export class AdminAuthGuard implements CanActivate {
       switchMap((userData: User | null) => {
         console.log('AuthGuard - User Data:', userData);
         if (userData) {
-          console.log('Checking if user is admin...');
+          console.log('Checking if user is admin with UID:', userData.uid);
           return this.checkIfAdmin(userData);
         } else {
           console.log('User not signed in, prompting Google Sign-In...');
