@@ -21,21 +21,22 @@ export class AdminAuthGuard implements CanActivate {
     private router: Router
   ) {}
 
+  // Determines if the route can be activated based on user authentication and admin status
   canActivate(): Observable<boolean> {
     return user(this.auth).pipe(
       switchMap((userData: User | null) => {
-        console.log('AuthGuard - User Data:', userData);
+        // console.log('AuthGuard - User Data:', userData);
         if (userData) {
-          console.log('Checking if user is admin with UID:', userData.uid);
+          // console.log('Checking if user is admin with UID:', userData.uid);
           return this.checkIfAdmin(userData);
         } else {
-          console.log('User not signed in, prompting Google Sign-In...');
+          // console.log('User not signed in, prompting Google Sign-In...');
           return from(
             signInWithPopup(this.auth, new GoogleAuthProvider())
           ).pipe(
             switchMap((credential) => {
               const signedInUser = credential.user;
-              console.log('User signed in with Google:', signedInUser);
+              // console.log('User signed in with Google:', signedInUser);
               return this.checkIfAdmin(signedInUser);
             }),
             catchError((error) => {
@@ -49,15 +50,16 @@ export class AdminAuthGuard implements CanActivate {
     );
   }
 
+  // Checks if the authenticated user has an admin document in Firestore
   private checkIfAdmin(userData: User): Observable<boolean> {
     const adminDocRef = doc(this.firestore, `admins/${userData.uid}`);
     return from(getDoc(adminDocRef)).pipe(
       map((adminDoc) => {
-        console.log('Admin document found:', adminDoc.exists());
+        // console.log('Admin document found:', adminDoc.exists());
         if (adminDoc.exists()) {
           return true;
         } else {
-          console.log('User is not admin, access denied');
+          // console.log('User is not admin, access denied');
           this.router.navigate(['/']);
           return false;
         }

@@ -44,17 +44,17 @@ export class AppComponent {
   constructor(private menuCtrl: MenuController, private router: Router) {}
 
   async closeMenu(route: string) {
-    console.log('Menu close triggered, navigating to:', route);
+    // console.log('Menu close triggered, navigating to:', route);
 
     try {
       await this.router.navigate([route]);
-      console.log('Navigation complete. Attempting to close menu...');
+      // console.log('Navigation complete. Attempting to close menu...');
 
       await this.menuCtrl.close('main-menu');
 
       console.log('Menu toggle command sent.');
     } catch (error) {
-      console.error('Error during navigation or menu closing:', error);
+      // console.error('Error during navigation or menu closing:', error);
     }
   }
 }

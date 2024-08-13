@@ -49,7 +49,7 @@ export class AdminPageComponent implements OnInit {
 
     // Update the approval status in the admin collection
     await updateDoc(photoDoc, { approved: true }).then(() => {
-      console.log('Photo approved');
+      // console.log('Photo approved');
     });
 
     // Add the approved photo to the gallery collection
@@ -61,7 +61,7 @@ export class AdminPageComponent implements OnInit {
       date: new Date().toISOString(),
     })
       .then(() => {
-        console.log('Photo added to gallery');
+        // console.log('Photo added to gallery');
       })
       .catch((error) => {
         console.error('Error adding photo to gallery:', error);
@@ -71,7 +71,7 @@ export class AdminPageComponent implements OnInit {
   rejectPhoto(photo: SubmittedPhoto) {
     const photoDoc = doc(this.firestore, `admin/${photo.id}`);
     updateDoc(photoDoc, { approved: false }).then(() => {
-      console.log('Photo rejected');
+      // console.log('Photo rejected');
     });
   }
 }

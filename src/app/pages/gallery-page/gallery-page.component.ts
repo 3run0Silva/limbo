@@ -33,6 +33,7 @@ export class GalleryPageComponent implements OnInit {
     this.photos$ = this.fetchPhotos();
   }
 
+  // Fetches the photos from the 'gallery' collection in Firestore
   fetchPhotos(): Observable<
     { img: string; description: string; author: string; date: string }[]
   > {
@@ -42,6 +43,7 @@ export class GalleryPageComponent implements OnInit {
     >;
   }
 
+  // Opens a selected photo in a full-screen view
   openPhoto(photo: {
     img: string;
     description: string;
@@ -52,25 +54,26 @@ export class GalleryPageComponent implements OnInit {
     this.showInfo = false;
   }
 
+  // Closes the currently opened photo view
   closePhoto() {
     this.selectedPhoto = null;
     this.showInfo = false;
   }
 
+  // Toggles the display of additional photo information
   toggleInfo(event: Event) {
     event.stopPropagation();
     this.showInfo = !this.showInfo;
   }
 
+  // Opens a modal to add a new photo to the gallery
   async openAddPhotoModal() {
     const modal = await this.modalController.create({
       component: AddPhotoModalComponent,
     });
 
-    modal.onDidDismiss().then((data) => {
-      if (data.data?.imageUrl) {
-      }
-    });
+    // Handle any data returned from the modal
+    modal.onDidDismiss().then((data) => {});
 
     await modal.present();
   }
