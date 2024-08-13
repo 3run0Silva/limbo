@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { AddPhotoModalComponent } from '../../components/add-photo-modal/add-photo-modal.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-gallery-page',
@@ -12,8 +13,9 @@ import { AddPhotoModalComponent } from '../../components/add-photo-modal/add-pho
   styleUrls: ['./gallery-page.component.scss'],
 })
 export class GalleryPageComponent implements OnInit {
-  photos: { img: string; description: string; author: string; date: string }[] =
-    [];
+  photos$!: Observable<
+    { img: string; description: string; author: string; date: string }[]
+  >;
   selectedPhoto: {
     img: string;
     description: string;
@@ -28,19 +30,16 @@ export class GalleryPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.fetchPhotos();
+    this.photos$ = this.fetchPhotos();
   }
 
-  fetchPhotos() {
+  fetchPhotos(): Observable<
+    { img: string; description: string; author: string; date: string }[]
+  > {
     const photoCollection = collection(this.firestore, 'gallery');
-    collectionData(photoCollection).subscribe((data: any[]) => {
-      this.photos = data.map((item) => ({
-        img: item.img,
-        description: item.description,
-        author: item.author,
-        date: item.date,
-      }));
-    });
+    return collectionData(photoCollection) as Observable<
+      { img: string; description: string; author: string; date: string }[]
+    >;
   }
 
   openPhoto(photo: {

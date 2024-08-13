@@ -40,12 +40,18 @@ export class HomePageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Fetches the number of open and closed establishments
     this.fetchEstablishmentStatus();
+
+    // Fetches data related to photos in the gallery, including recent photos
     this.fetchPhotosData();
+
+    // Fetches the main image for the home page
     this.fetchMainImage();
   }
 
   fetchEstablishmentStatus() {
+    // Subscribes to the establishment data and calculates open and closed establishments
     this.nightlifeService.getEstablishments().subscribe((data) => {
       this.openEstablishments = data.filter((establishment) =>
         this.isOpen(establishment.openingTime, establishment.closingTime)
@@ -55,10 +61,12 @@ export class HomePageComponent implements OnInit {
   }
 
   fetchPhotosData() {
+    // Fetches the total number of photos in the gallery
     const photoCollection = collection(this.firestore, 'gallery');
     collectionData(photoCollection).subscribe((photos: any[]) => {
       this.totalPhotos = photos.length;
 
+      // Fetches the number of recent photos based on the 'date' field
       const recentPhotosQuery = query(
         photoCollection,
         orderBy('date', 'desc'),
@@ -71,6 +79,7 @@ export class HomePageComponent implements OnInit {
   }
 
   async fetchMainImage() {
+    // Fetches the main image for the home page from the 'vedette' collection in Firestore
     const mainImageDoc = doc(this.firestore, 'vedette', 'main');
     const mainImageSnapshot = await getDoc(mainImageDoc);
     if (mainImageSnapshot.exists()) {
@@ -78,6 +87,7 @@ export class HomePageComponent implements OnInit {
     }
   }
 
+  // Determines if an establishment is currently open based on its opening and closing times
   isOpen(openingTime: string, closingTime: string): boolean {
     const now = new Date();
     const open = new Date();
@@ -92,6 +102,7 @@ export class HomePageComponent implements OnInit {
     return now >= open && now <= close;
   }
 
+  // Navigates to a different route within the app
   navigateTo(route: string) {
     this.router.navigate([route]);
   }

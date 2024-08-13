@@ -36,6 +36,7 @@ export class NightlifePageComponent implements OnInit {
   constructor(private nightlifeService: NightlifeService) {}
 
   ngOnInit() {
+    // Fetches the list of establishments and processes each one to add lat/lng and status
     this.establishments$ = this.nightlifeService.getEstablishments().pipe(
       map((data: Establishment[]) =>
         data.map((establishment: Establishment) => ({
@@ -51,26 +52,31 @@ export class NightlifePageComponent implements OnInit {
     );
   }
 
+  // Sets the selected establishment to be focused on in the UI
   focusEstablishment(establishment: Establishment) {
     this.selectedEstablishment = establishment;
   }
 
+  // Resets the selected establishment, typically used when deselecting or closing details
   resetEstablishment() {
     this.selectedEstablishment = null;
   }
 
-  // Function to "calculate" the status of the stablishment based on open and close time params
+  // Determines the status (OPEN/CLOSED) of an establishment based on the current time
   getStatus(openingTime: string, closingTime: string): string {
     const now = new Date();
     const open = new Date();
     const close = new Date();
 
+    // Parsing opening time to set the hours and minutes for the 'open' time
     const [openHour, openMinute] = openingTime.split(':').map(Number);
     open.setHours(openHour, openMinute);
 
+    // Parsing closing time to set the hours and minutes for the 'close' time
     const [closeHour, closeMinute] = closingTime.split(':').map(Number);
     close.setHours(closeHour, closeMinute);
 
+    // Check if the current time is within the opening hours
     if (now >= open && now <= close) {
       return 'OPEN';
     } else {

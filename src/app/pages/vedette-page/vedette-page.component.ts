@@ -19,16 +19,18 @@ export class VedettePageComponent implements OnInit {
   mainImage: VedetteImage | undefined;
   midImage: VedetteImage | undefined;
   endImage: VedetteImage | undefined;
-  selectedImage: VedetteImage | null = null; // Property to track selected image
+  selectedImage: VedetteImage | null = null;
 
   constructor(private firestore: Firestore) {}
 
   ngOnInit() {
+    // Fetches the images from Firestore when the component initializes
     this.fetchMainImage();
     this.fetchMidImage();
     this.fetchEndImage();
   }
 
+  // Fetches the main image data from the 'vedette' collection in Firestore
   async fetchMainImage() {
     const mainImageDoc = doc(this.firestore, 'vedette', 'main');
     const mainImageSnapshot = await getDoc(mainImageDoc);
@@ -37,6 +39,7 @@ export class VedettePageComponent implements OnInit {
     }
   }
 
+  // Fetches the mid article image data from Firestore
   async fetchMidImage() {
     const midImageDoc = doc(this.firestore, 'vedette', 'imgmd');
     const midImageSnapshot = await getDoc(midImageDoc);
@@ -45,6 +48,7 @@ export class VedettePageComponent implements OnInit {
     }
   }
 
+  // Fetches the end article image data from Firestore
   async fetchEndImage() {
     const endImageDoc = doc(this.firestore, 'vedette', 'imgend');
     const endImageSnapshot = await getDoc(endImageDoc);
@@ -53,7 +57,9 @@ export class VedettePageComponent implements OnInit {
     }
   }
 
+  // Toggles the display of the image description overlay
   toggleDescription(image: VedetteImage) {
+    // If the clicked image is already selected, deselect it, otherwise select it
     this.selectedImage = this.selectedImage === image ? null : image;
   }
 }
