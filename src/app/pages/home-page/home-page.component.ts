@@ -31,18 +31,18 @@ export class HomePageComponent implements OnInit {
   closedEstablishments: number = 0;
   newPhotos: number = 0;
   totalPhotos: number = 0;
-  mainImage: VedetteImage | undefined; // Property to hold the main image
+  mainImage: VedetteImage | undefined;
 
   constructor(
     private router: Router,
     private nightlifeService: NightlifeService,
-    private firestore: Firestore // Inject Firestore
+    private firestore: Firestore
   ) {}
 
   ngOnInit() {
     this.fetchEstablishmentStatus();
     this.fetchPhotosData();
-    this.fetchMainImage(); // Fetch the main image from Firestore
+    this.fetchMainImage();
   }
 
   fetchEstablishmentStatus() {

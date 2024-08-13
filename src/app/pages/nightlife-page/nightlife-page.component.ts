@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { NightlifeCardComponent } from '../../components/nighlife-card/nightlife-card.component';
 import { NightlifeMapComponent } from '../../components/nightlife-map/nightlife-map.component';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 interface Establishment {
   name: string;
@@ -27,17 +29,16 @@ interface Establishment {
   styleUrls: ['./nightlife-page.component.scss'],
 })
 export class NightlifePageComponent implements OnInit {
-  establishments: Establishment[] = [];
+  establishments$: Observable<Establishment[]> | undefined;
   selectedEstablishment: Establishment | null = null;
   toastShown = false;
 
   constructor(private nightlifeService: NightlifeService) {}
 
   ngOnInit() {
-    this.nightlifeService
-      .getEstablishments()
-      .subscribe((data: Establishment[]) => {
-        this.establishments = data.map((establishment: Establishment) => ({
+    this.establishments$ = this.nightlifeService.getEstablishments().pipe(
+      map((data: Establishment[]) =>
+        data.map((establishment: Establishment) => ({
           ...establishment,
           lat: establishment.location[0],
           lng: establishment.location[1],
@@ -45,8 +46,9 @@ export class NightlifePageComponent implements OnInit {
             establishment.openingTime,
             establishment.closingTime
           ),
-        }));
-      });
+        }))
+      )
+    );
   }
 
   focusEstablishment(establishment: Establishment) {
@@ -57,6 +59,7 @@ export class NightlifePageComponent implements OnInit {
     this.selectedEstablishment = null;
   }
 
+  // Function to "calculate" the status of the stablishment based on open and close time params
   getStatus(openingTime: string, closingTime: string): string {
     const now = new Date();
     const open = new Date();

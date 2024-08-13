@@ -1,7 +1,7 @@
 <ion-content>
   <div class="background">
     <app-nightlife-map
-      [establishments]="establishments"
+      [establishments]="(establishments$ | async) || []"
       [selectedEstablishment]="selectedEstablishment"
       (markerClick)="focusEstablishment($event)"
     >
@@ -10,7 +10,10 @@
     <div class="scrollable-cards">
       <ion-grid *ngIf="!selectedEstablishment">
         <ion-row>
-          <ion-col size="6" *ngFor="let establishment of establishments">
+          <ion-col
+            size="6"
+            *ngFor="let establishment of (establishments$ | async) || []"
+          >
             <app-nightlife-card
               [establishment]="establishment"
               (cardClick)="focusEstablishment(establishment)"
