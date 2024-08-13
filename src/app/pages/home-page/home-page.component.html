@@ -2,8 +2,12 @@
   <div class="background">
     <div class="header">
       <h2>Le côté invisible des CFF</h2>
-      <img src="assets/images/tpg-tram.jpg" alt="TPG tram" />
-      <p>
+      <img
+        src="assets/images/tpg-tram.jpg"
+        alt="TPG tram"
+        class="header-image"
+      />
+      <p class="header-text">
         La plupart des gens tiennent pour acquis le bon fonctionnement des
         trains qu'ils prennent chaque matin. Ils ne réalisent pas souvent le
         travail considérable qui se fait pendant la nuit pour s'assurer que tout
@@ -12,7 +16,7 @@
       <ion-button
         expand="block"
         (click)="navigateTo('/vedette')"
-        style="height: 50px"
+        class="action-button"
       >
         En savoir plus
       </ion-button>
@@ -20,25 +24,34 @@
 
     <ion-grid>
       <ion-row>
-        <ion-col size="6">
+        <ion-col size="6" size-md="6">
           <div class="card nightlife" (click)="navigateTo('/nightlife')">
-            <img src="assets/images/nightlife.jpg" alt="Nightlife" />
-            <p>Vie Nocturne</p>
-            <span>Découvrez tous les établissements ouverts ou fermés.</span>
+            <img
+              src="assets/images/nightlife.jpg"
+              alt="Nightlife"
+              class="card-image"
+            />
+            <p class="card-title">Vie Nocturne</p>
+            <span class="card-description">
+              Découvrez tous les établissements ouverts ou fermés.
+            </span>
             <div class="tags">
               <ion-badge color="danger">{{ closedEstablishments }}</ion-badge>
               <ion-badge color="success">{{ openEstablishments }}</ion-badge>
             </div>
           </div>
         </ion-col>
-        <ion-col size="6">
+        <ion-col size="6" size-md="6">
           <div class="card art-culture" (click)="navigateTo('/gallery')">
-            <img src="assets/images/gallery.jpg" alt="Art & Culture" />
-            <p>Art & Culture</p>
-            <span
-              >Explorez une galerie d'art numérique créée par la
-              communauté.</span
-            >
+            <img
+              src="assets/images/gallery.jpg"
+              alt="Art & Culture"
+              class="card-image"
+            />
+            <p class="card-title">Art & Culture</p>
+            <span class="card-description">
+              Explorez une galerie d'art numérique créée par la communauté.
+            </span>
             <div class="tags">
               <ion-badge color="primary">New {{ newPhotos }}</ion-badge>
               <ion-badge color="secondary">{{ totalPhotos }}</ion-badge>
