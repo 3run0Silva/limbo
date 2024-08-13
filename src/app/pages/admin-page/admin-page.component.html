@@ -1,0 +1,20 @@
+<ion-content>
+  <ion-list *ngIf="photos$ | async as photos">
+    <ion-item *ngFor="let photo of photos">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="photo.imageUrl"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ photo.author }}</h2>
+        <p>{{ photo.description }}</p>
+        <p><strong>Date:</strong> {{ photo.date }}</p>
+      </ion-label>
+      <ion-button color="success" (click)="approvePhoto(photo)">
+        Approve
+      </ion-button>
+      <ion-button color="danger" (click)="rejectPhoto(photo)">
+        Reject
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
